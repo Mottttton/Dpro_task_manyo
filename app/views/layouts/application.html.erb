@@ -4,12 +4,19 @@
     <title>CdpWebManyoTask</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
+    <nav>
+      <ul>
+        <li><%= link_to "Tasks Index", tasks_path, method: :get, id: "tasks-index" %></li>
+        <li><%= link_to "New Task", new_task_path, method: :get, id: "new-task" %></li>
+      </ul>
+    </nav>
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, id: "notice", class: "#{key}") %>
+    <% end %>
     <%= yield %>
   </body>
 </html>

@@ -11,9 +11,9 @@
         <td><%= task.title %></td>
         <td><%= task.content %></td>
         <td><%= task.created_at %></td>
-        <td><%= link_to t('common.show'), task_path(task.id), method: :get, id: "show-task" %></td>
-        <td><%= link_to t('common.edit'), edit_task_path(task.id), method: :get, id: "edit-task" %></td>
-        <td><%= link_to t('common.destroy'), task_path(task.id), method: :delete, id: "destroy-task", data: {confirm: t('common.confirm_destroy')} %></td>
+        <td><%= link_to t('common.show'), task_path(task.id), method: :get, class: "show-task" %></td>
+        <td><%= link_to t('common.edit'), edit_task_path(task.id), method: :get, class: "edit-task" %></td>
+        <td><%= link_to t('common.destroy'), task_path(task.id), method: :delete, class: "destroy-task", data: {confirm: t('common.confirm_destroy')} %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,5 +1,4 @@
 50.times do |i|
-  unless Task.find_by(id: i+1)
-    Task.create!(title: "test#{i+1}", content: "task#{i+1}")
-  end
+  task_id = i + 1
+  Task.create!(title: "test#{task_id}", content: "task#{task_id}")
 end

@@ -23,6 +23,9 @@ ja:
       create: 登録する
       update: 更新する
   tasks:
+    nav:
+      index: タスク一覧
+      create: タスクを登録する
     index:
       title: タスク一覧ページ
     new:
@@ -30,7 +33,7 @@ ja:
     show:
       title: タスク詳細ページ
     edit:
-      title: Edit Task Page
+      title: タスク編集ページ
     create:
       created: タスクを登録しました
     update:

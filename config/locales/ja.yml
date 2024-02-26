@@ -7,6 +7,9 @@ ja:
         title: タイトル
         content: 内容
         created_at: 作成日時
+        deadline_on: 終了期限
+        priority: 優先度
+        status: ステータス
   errors:
     format: "%{attribute}%{message}"
     messages:
@@ -28,6 +31,13 @@ ja:
       create: タスクを登録する
     index:
       title: タスク一覧ページ
+      table:
+        title: タイトル
+        content: 内容
+        created_at: 作成日時
+        deadline_on: 終了期限
+        priority: 優先度
+        status: ステータス
     new:
       title: タスク登録ページ
     show:

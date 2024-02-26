@@ -3,6 +3,14 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.in_reverse_created_date_order.page(params[:page])
+
+    if params[:sort_deadline_on].present?
+      @tasks = Task.in_deadline_date_order.page(params[:page])
+    end
+    if params[:sort_priority].present?
+      @tasks = Task.sorted_by_priority.page(params[:page])
+    end
+
     if params[:search].present?
       if params[:search][:title].present? && params[:search][:status].present?
         @tasks = Task.title_status_search(params[:search][:title], params[:search][:status]).in_reverse_created_date_order.page(params[:page])

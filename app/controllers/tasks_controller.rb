@@ -2,7 +2,16 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.order(created_at: "DESC").page(params[:page])
+    @tasks = Task.in_reverse_created_date_order.page(params[:page])
+    if params[:search].present?
+      if params[:search][:title].present? && params[:search][:status].present?
+        @tasks = Task.title_status_search(params[:search][:title], params[:search][:status]).in_reverse_created_date_order.page(params[:page])
+      elsif params[:search][:title].present?
+        @tasks = Task.title_search(params[:search][:title]).in_reverse_created_date_order.page(params[:page])
+      elsif params[:search][:status].present?
+        @tasks = Task.status_search(params[:search][:status]).in_reverse_created_date_order.page(params[:page])
+      end
+    end
   end
 
   def new

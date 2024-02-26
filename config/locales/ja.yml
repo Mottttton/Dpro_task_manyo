@@ -20,6 +20,7 @@ ja:
     edit: 編集
     destroy: 削除
     back: 戻る
+    search: 検索
     confirm_destroy: 本当に削除してもよろしいですか？
   helpers:
     submit:

@@ -7,6 +7,8 @@ class Task < ApplicationRecord
   validates :status, presence: true
   enum status: [:未着手, :着手中, :完了]
 
-  scope :title_search, ->(part) {where("title like ?", "%#(part)%")}
+  scope :in_reverse_created_date_order, -> () {order(created_at: "DESC")}
+  scope :title_search, ->(part) {where("title like ?", "%#{part}%")}
   scope :status_search, ->(status) {where(status: status)}
+  scope :title_status_search, -> (part, status) {where("title like ?", "%#{part}%").where(status: status)}
 end

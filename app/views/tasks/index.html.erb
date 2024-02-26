@@ -1,4 +1,13 @@
 <h1><%= t(".title") %></h1>
+<%= form_with(url: tasks_path, method: :get, scope: :search, local: true) do |f| %>
+  <div class="field">
+    <%= f.label t('activerecord.attributes.task.status') %>
+    <%= f.select :status, Task.statuses.keys.to_a, include_blank: true %>
+    <%= f.label t('activerecord.attributes.task.title') %>
+    <%= f.text_field :title %>
+  </div>
+  <%= f.submit t('common.search'), id: 'search_task' %>
+<% end %>
 <table>
   <thead>
     <th><%= t('.table.title') %></th>

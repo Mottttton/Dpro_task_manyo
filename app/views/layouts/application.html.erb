@@ -10,8 +10,8 @@
   <body>
     <nav>
       <ul>
-        <li><%= link_to "Tasks Index", tasks_path, method: :get, id: "tasks-index" %></li>
-        <li><%= link_to "New Task", new_task_path, method: :get, id: "new-task" %></li>
+        <li><%= link_to t('tasks.nav.index'), tasks_path, method: :get, id: "tasks-index" %></li>
+        <li><%= link_to t('tasks.nav.create'), new_task_path, method: :get, id: "new-task" %></li>
       </ul>
     </nav>
     <% flash.each do |key, value| %>

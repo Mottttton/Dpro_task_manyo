@@ -2,7 +2,24 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.order(created_at: "DESC").page(params[:page])
+    @tasks = Task.in_reverse_created_date_order.page(params[:page])
+
+    if params[:sort_deadline_on].present?
+      @tasks = Task.in_deadline_date_order.page(params[:page])
+    end
+    if params[:sort_priority].present?
+      @tasks = Task.sorted_by_priority.in_reverse_created_date_order.page(params[:page])
+    end
+
+    if params[:search].present?
+      if params[:search][:title].present? && params[:search][:status].present?
+        @tasks = Task.title_status_search(params[:search][:title], params[:search][:status]).in_reverse_created_date_order.page(params[:page])
+      elsif params[:search][:title].present?
+        @tasks = Task.title_search(params[:search][:title]).in_reverse_created_date_order.page(params[:page])
+      elsif params[:search][:status].present?
+        @tasks = Task.status_search(params[:search][:status]).in_reverse_created_date_order.page(params[:page])
+      end
+    end
   end
 
   def new
@@ -44,6 +61,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title ,:content)
+    params.require(:task).permit(:title, :content, :deadline_on, :priority, :status)
   end
 end

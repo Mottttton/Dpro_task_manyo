@@ -1,9 +1,23 @@
 <h1><%= t(".title") %></h1>
+<%= form_with(url: tasks_path, method: :get, scope: :search, local: true) do |f| %>
+  <div class="field">
+    <%= f.label :status, t('.table.status') %>
+    <%= f.select :status, Task.statuses.map { |k| [k, k] }, include_blank: true %>
+    <%= f.label :title, t('.table.title') %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="action">
+    <%= f.submit t('common.search'), id: 'search_task' %>
+  </div>
+<% end %>
 <table>
   <thead>
-    <th>Title</th>
-    <th>Content</th>
-    <th>Created_at</th>
+    <th><%= t('.table.title') %></th>
+    <th><%= t('.table.content') %></th>
+    <th><%= t('.table.created_at') %></th>
+    <th><%= link_to t('.table.deadline_on'), sort_deadline_on: true %></th>
+    <th><%= link_to t('.table.priority'), sort_priority: true %></th>
+    <th><%= t('.table.status') %></th>
   </thead>
   <tbody>
     <% @tasks.each do |task| %>
@@ -11,6 +25,9 @@
         <td><%= task.title %></td>
         <td><%= task.content %></td>
         <td><%= l task.created_at %></td>
+        <td><%= l task.deadline_on %></td>
+        <td><%= task.priority %></td>
+        <td><%= task.status %></td>
         <td><%= link_to t('common.show'), task_path(task.id), method: :get, class: "show-task" %></td>
         <td><%= link_to t('common.edit'), edit_task_path(task.id), method: :get, class: "edit-task" %></td>
         <td><%= link_to t('common.destroy'), task_path(task.id), method: :delete, class: "destroy-task", data: {confirm: t('common.confirm_destroy')} %></td>

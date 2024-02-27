@@ -13,11 +13,11 @@
   </div>
   <div class="field">
     <%= form.label :priority %>
-    <%= form.select :priority, Task.enum_options_for_select(:priority).reverse, include_blank: true %>
+    <%= form.select :priority, Task.priorities.to_a.reverse, include_blank: true %>
   </div>
   <div class="field">
     <%= form.label :status %>
-    <%= form.select :status, Task.enum_options_for_select(:status), include_blank: true %>
+    <%= form.select :status, Task.statuses.to_a, include_blank: true %>
   </div>
   <div class="actions">
     <%= form.submit id: action %>

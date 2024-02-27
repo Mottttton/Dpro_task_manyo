@@ -3,9 +3,9 @@ class Task < ApplicationRecord
   validates :content, presence: true
   validates :deadline_on, presence: true
   validates :priority, presence: true
-  enum priority: [:low, :middle, :high]
+  enum priority: [:低, :中, :高]
   validates :status, presence: true
-  enum status: [:untouched, :undertaking, :completed]
+  enum status: [:未着手, :着手中, :完了]
 
   scope :in_reverse_created_date_order, -> () {order(created_at: "DESC")}
   scope :in_deadline_date_order, -> () {order(deadline_on: "ASC")}

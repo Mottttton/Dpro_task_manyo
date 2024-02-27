@@ -2,7 +2,7 @@
 <%= form_with(url: tasks_path, method: :get, scope: :search, local: true) do |f| %>
   <div class="field">
     <%= f.label :status, t('.table.status') %>
-    <%= f.select :status, Task.enum_options_for_select(:status), include_blank: true %>
+    <%= f.select :status, Task.statuses.to_a, include_blank: true %>
     <%= f.label :title, t('.table.title') %>
     <%= f.text_field :title %>
   </div>
@@ -25,7 +25,7 @@
         <td><%= task.title %></td>
         <td><%= task.content %></td>
         <td><%= l task.created_at %></td>
-        <td><%= task.deadline_on %></td>
+        <td><%= l task.deadline_on %></td>
         <td><%= task.priority %></td>
         <td><%= task.status %></td>
         <td><%= link_to t('common.show'), task_path(task.id), method: :get, class: "show-task" %></td>

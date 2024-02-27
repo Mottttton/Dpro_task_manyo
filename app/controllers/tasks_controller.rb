@@ -8,7 +8,7 @@ class TasksController < ApplicationController
       @tasks = Task.in_deadline_date_order.page(params[:page])
     end
     if params[:sort_priority].present?
-      @tasks = Task.sorted_by_priority.page(params[:page])
+      @tasks = Task.sorted_by_priority.in_reverse_created_date_order.page(params[:page])
     end
 
     if params[:search].present?

@@ -13,11 +13,11 @@
   </div>
   <div class="field">
     <%= form.label :priority %>
-    <%= form.select :priority, Task.priorities.to_a.reverse, include_blank: true %>
+    <%= form.select :priority, Task.priorities.keys.map { |k| [k, k] }.reverse, include_blank: true %>
   </div>
   <div class="field">
     <%= form.label :status %>
-    <%= form.select :status, Task.statuses.to_a, include_blank: true %>
+    <%= form.select :status, Task.statuses.keys.map { |k| [k, k] }, include_blank: true %>
   </div>
   <div class="actions">
     <%= form.submit id: action %>

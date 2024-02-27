@@ -9,7 +9,7 @@
   </div>
   <div class="field">
     <%= form.label :deadline_on %>
-    <%= form.date_field :deadline_on %>
+    <%= form.date_field :deadline_on, max: "9999-12-31" %>
   </div>
   <div class="field">
     <%= form.label :priority %>

@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.in_reverse_created_date_order.page(params[:page])
+    @tasks = Task.current_user_tasks(current_user).in_reverse_created_date_order.page(params[:page])
 
     if params[:sort_deadline_on].present?
       @tasks = Task.in_deadline_date_order.page(params[:page])
@@ -27,7 +27,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to tasks_path, notice: t('.created')
     else

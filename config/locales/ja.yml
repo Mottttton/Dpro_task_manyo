@@ -69,13 +69,6 @@ ja:
     nav:
       new: アカウント登録
       show: アカウント設定
-    index:
-      title: ユーザ一覧ページ
-      table:
-        name: 名前
-        email: メールアドレス
-        admin: 管理者権限
-        tasks: タスク数
     new:
       title: アカウント登録ページ
     create:
@@ -88,6 +81,27 @@ ja:
       updated: ユーザを更新しました
     destroy:
       destroyed: ユーザを削除しました
+  admin:
+    users:
+      nav:
+        index: ユーザ一覧
+        new: ユーザを登録する
+      index:
+        title: ユーザ一覧ページ
+        table:
+          name: 名前
+          email: メールアドレス
+          admin: 管理者権限
+          tasks: タスク数
+      new:
+        title: アカウント登録ページ
+      create:
+        created: ユーザを登録しました
+      update:
+        updated: ユーザを更新しました
+      destroy:
+        destroyed: ユーザを削除しました
+        no_admin: 管理者が0人になるため削除できません
   sessions:
     nav:
       create: ログイン
@@ -102,6 +116,8 @@ ja:
       destroyed: ログアウトしました
   notice:
     require_sign_in: ログインしてください
+    require_sign_out: ログアウトしてください
+    require_admin: 管理者以外アクセスできません
     reject: アクセス権がありません
   time:
     formats:
@@ -109,4 +125,5 @@ ja:
   date:
     formats:
       default: "%Y/%m/%d"
-  
+  true: あり
+  false: なし

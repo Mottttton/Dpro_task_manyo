@@ -7,4 +7,6 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }
 
+  scope :admin_count, -> () { where(admin: true).count }
+  scope :with_tasks_amount, -> () { left_outer_joins(:tasks).select('users.*, COUNT(tasks.id) AS tasks_count').group('users.id') }
 end

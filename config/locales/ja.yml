@@ -94,9 +94,11 @@ ja:
           admin: 管理者権限
           tasks: タスク数
       new:
-        title: アカウント登録ページ
+        title: ユーザ登録ページ
       create:
         created: ユーザを登録しました
+      show:
+        title: ユーザ詳細ページ
       update:
         updated: ユーザを更新しました
       destroy:

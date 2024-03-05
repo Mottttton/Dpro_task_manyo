@@ -3,7 +3,7 @@ FactoryBot.define do
     name { "taro" }
     email { "taro@sample.com" }
     password { "password" }
-    admin { false }
+    admin { true }
 
     trait :with_tasks do
       after(:create) do |user|

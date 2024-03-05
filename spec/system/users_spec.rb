@@ -49,7 +49,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
       it '他人の詳細画面にアクセスすると、タスク一覧画面に遷移する' do
         visit user_path(second_user.id)
         expect(page).to have_text('タスク一覧ページ')
-        expect(page).to have_text('アクセス権がありません')
+        expect(page).to have_text('アクセス権限がありません')
       end
       it 'ログアウトするとログイン画面に遷移し、「ログアウトしました」というメッセージが表示される' do
         click_link('ログアウト')

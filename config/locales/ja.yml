@@ -99,6 +99,8 @@ ja:
         created: ユーザを登録しました
       show:
         title: ユーザ詳細ページ
+      edit:
+        title: ユーザ編集ページ
       update:
         updated: ユーザを更新しました
       destroy:

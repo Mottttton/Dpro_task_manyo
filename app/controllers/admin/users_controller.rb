@@ -10,7 +10,6 @@ class Admin::UsersController < UsersController
   def create
     @user = User.new(user_params)
       if @user.save
-        binding.irb
         redirect_to admin_users_path, notice: t('.created')
       else
         render :new

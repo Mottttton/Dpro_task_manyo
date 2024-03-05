@@ -1,4 +1,5 @@
 class Admin::UsersController < UsersController
+  before_action :sign_in_required
   before_action :admin_required
   skip_before_action :sign_out_required, only: [:new, :create]
   skip_before_action :correct_user, only: [:create, :show, :update]
@@ -17,10 +18,16 @@ class Admin::UsersController < UsersController
   end
 
   def update
-    if @user.update(user_params)
-      redirect_to admin_users_path, notice: t('.updated')
-    else
-      render :edit
+    ActiveRecord::Base.transaction do
+      if @user.update(user_params)
+        if User.admin_count == 0
+          redirect_to admin_users_path, notice: t('.no_admin')
+          raise ActiveRecord::Rollback
+        end
+        redirect_to admin_users_path, notice: t('.updated')
+      else
+        render :edit
+      end
     end
   end
 

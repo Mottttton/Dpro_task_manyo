@@ -103,6 +103,7 @@ ja:
         title: ユーザ編集ページ
       update:
         updated: ユーザを更新しました
+        no_admin: 管理者が0人になるため権限を変更できません
       destroy:
         destroyed: ユーザを削除しました
         no_admin: 管理者が0人になるため削除できません

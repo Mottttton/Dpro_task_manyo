@@ -18,28 +18,16 @@ class Admin::UsersController < UsersController
   end
 
   def update
-    ActiveRecord::Base.transaction do
       if @user.update(user_params)
-        if User.admin_count == 0
-          redirect_to admin_users_path, notice: t('.no_admin')
-          raise ActiveRecord::Rollback
-        end
         redirect_to admin_users_path, notice: t('.updated')
       else
         render :edit
       end
-    end
   end
 
   def destroy
-    ActiveRecord::Base.transaction do
       @user.destroy!
-      if User.admin_count == 0
-        redirect_to admin_users_path, notice: t('.no_admin')
-        raise ActiveRecord::Rollback
-      end
       redirect_to admin_users_path, notice: t('.destroyed')
-    end
   end
 
   private

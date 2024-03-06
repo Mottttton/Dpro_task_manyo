@@ -1,4 +1,6 @@
 class Task < ApplicationRecord
+  belongs_to :user
+
   validates :title, presence: true
   validates :content, presence: true
   validates :deadline_on, presence: true
@@ -7,6 +9,7 @@ class Task < ApplicationRecord
   validates :status, presence: true
   enum status: [:未着手, :着手中, :完了]
 
+  scope :current_user_tasks, -> (user) {where(user_id: user.id)}
   scope :in_reverse_created_date_order, -> () {order(created_at: "DESC")}
   scope :in_deadline_date_order, -> () {order(deadline_on: "ASC")}
   scope :sorted_by_priority, -> () {order(priority: "DESC")}

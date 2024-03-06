@@ -1,0 +1,12 @@
+<h1><%= t('.title') %></h1>
+<% if @user.errors.any? %>
+  <div class="error_explanation">
+    <h2>Fail to create user</h2>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= render 'form', {user: @user, url: '/admin/users', action: 'create-user'} %>

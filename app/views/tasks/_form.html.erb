@@ -1,25 +1,25 @@
-<%= form_with(model: task, local: true) do |form| %>
+<%= form_with(model: task, local: true) do |f| %>
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content %>
+    <%= f.label :content %>
+    <%= f.text_area :content %>
   </div>
   <div class="field">
-    <%= form.label :deadline_on %>
-    <%= form.date_field :deadline_on, max: "9999-12-31" %>
+    <%= f.label :deadline_on %>
+    <%= f.date_field :deadline_on, max: "9999-12-31" %>
   </div>
   <div class="field">
-    <%= form.label :priority %>
-    <%= form.select :priority, Task.priorities.keys.map { |k| [k, k] }.reverse, include_blank: true %>
+    <%= f.label :priority %>
+    <%= f.select :priority, Task.priorities.keys.map { |k| [k, k] }.reverse, include_blank: true %>
   </div>
   <div class="field">
-    <%= form.label :status %>
-    <%= form.select :status, Task.statuses.keys.map { |k| [k, k] }, include_blank: true %>
+    <%= f.label :status %>
+    <%= f.select :status, Task.statuses.keys.map { |k| [k, k] }, include_blank: true %>
   </div>
   <div class="actions">
-    <%= form.submit id: action %>
+    <%= f.submit id: action %>
   </div>
 <% end %>

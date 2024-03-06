@@ -10,8 +10,19 @@
   <body>
     <nav>
       <ul>
-        <li><%= link_to t('tasks.nav.index'), tasks_path, method: :get, id: "tasks-index" %></li>
-        <li><%= link_to t('tasks.nav.create'), new_task_path, method: :get, id: "new-task" %></li>
+        <% if logged_in? %>
+          <% if has_admin? %>
+            <li><%= link_to t('admin.users.nav.index'), admin_users_path, method: :get, id: "users-index" %></li>
+            <li><%= link_to t('admin.users.nav.new'), new_admin_user_path, method: :get, id: "add-user" %></li>
+          <% end %>
+          <li><%= link_to t('tasks.nav.index'), tasks_path, method: :get, id: "tasks-index" %></li>
+          <li><%= link_to t('tasks.nav.create'), new_task_path, method: :get, id: "new-task" %></li>
+          <li><%= link_to t('users.nav.show'), user_path(current_user.id), method: :get, id: "account-setting" %></li>
+          <li><%= link_to t('sessions.nav.delete'), session_path(current_user.id), method: :delete, id: "sign-out" %></li>
+        <% else %>
+          <li><%= link_to t('users.nav.new'), new_user_path, id: "sign-up" %></li>
+          <li><%= link_to t('sessions.nav.create'), new_session_path, id: "sign-in" %></li>
+        <% end %>
       </ul>
     </nav>
     <% flash.each do |key, value| %>

@@ -1,0 +1,4 @@
+<h1><%= t('.title') %></h1>
+<p><%= t('activerecord.attributes.user.name') %>:  <%= @user.name %></p>
+<p><%= t('activerecord.attributes.user.email') %>:  <%= @user.email %></p>
+<%= link_to t('common.edit'), edit_user_path, method: :get, id: "edit-user" %>

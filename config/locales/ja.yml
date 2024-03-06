@@ -10,10 +10,20 @@ ja:
         deadline_on: 終了期限
         priority: 優先度
         status: ステータス
+      user: 
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード（確認）
+        admin: 管理者権限
   errors:
     format: "%{attribute}%{message}"
     messages:
       blank: を入力してください
+      invalid: が正しくありません
+      taken: はすでに使用されています
+      too_short: は6文字以上で入力してください
+      confirmation: とパスワードの入力が一致しません
   common:
     new: 新規作成
     show: 詳細
@@ -26,6 +36,10 @@ ja:
     submit:
       create: 登録する
       update: 更新する
+    label:
+      session:
+        email: メールアドレス
+        password: パスワード
   tasks:
     nav:
       index: タスク一覧
@@ -51,10 +65,70 @@ ja:
       updated: タスクを更新しました
     destroy:
       destroyed: タスクを削除しました
+  users:
+    nav:
+      new: アカウント登録
+      show: アカウント設定
+    new:
+      title: アカウント登録ページ
+    create:
+      created: アカウントを登録しました
+    show:
+      title: アカウント詳細ページ
+    edit:
+      title: アカウント編集ページ
+    update:
+      updated: アカウントを更新しました
+    destroy:
+      destroyed: アカウントを削除しました
+  admin:
+    users:
+      nav:
+        index: ユーザ一覧
+        new: ユーザを登録する
+      index:
+        title: ユーザ一覧ページ
+        table:
+          name: 名前
+          email: メールアドレス
+          admin: 管理者権限
+          tasks: タスク数
+      new:
+        title: ユーザ登録ページ
+      create:
+        created: ユーザを登録しました
+      show:
+        title: ユーザ詳細ページ
+      edit:
+        title: ユーザ編集ページ
+      update:
+        updated: ユーザを更新しました
+        no_admin: 管理者が0人になるため権限を変更できません
+      destroy:
+        destroyed: ユーザを削除しました
+        no_admin: 管理者が0人になるため削除できません
+  sessions:
+    nav:
+      create: ログイン
+      delete: ログアウト
+    new:
+      title: ログインページ
+      sign_in: ログイン
+    create:
+      created: ログインしました
+      fail : メールアドレスまたはパスワードに誤りがあります
+    destroy:
+      destroyed: ログアウトしました
+  notice:
+    require_sign_in: ログインしてください
+    require_sign_out: ログアウトしてください
+    require_admin: 管理者以外アクセスできません
+    reject: アクセス権限がありません
   time:
     formats:
       default: "%Y/%m/%d %H:%M"
   date:
     formats:
       default: "%Y/%m/%d"
-  
+  true: あり
+  false: なし

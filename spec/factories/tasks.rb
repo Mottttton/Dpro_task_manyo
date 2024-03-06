@@ -25,4 +25,22 @@ FactoryBot.define do
     priority {0}
     status {2}
   end
+
+  factory :jiro_task, class: Task do
+    title {"jiro's tasks"}
+    content {'議事録を作成する。'}
+    created_at {'2022-02-16'}
+    deadline_on {'2022-02-16'}
+    priority {0}
+    status {2}
+  end
+
+  factory :hanako_task, class: Task do
+    title {"hanako's task"}
+    content {'議事録を作成する。'}
+    created_at {'2022-02-16'}
+    deadline_on {'2022-02-16'}
+    priority {0}
+    status {2}
+  end
 end

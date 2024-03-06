@@ -2,6 +2,13 @@ require 'rails_helper'
 
 RSpec.describe 'タスク管理機能', type: :system do
   describe '登録機能' do
+    let!(:first_user) { FactoryBot.create(:first_user) }
+    before do
+      visit new_session_path
+      fill_in('session_email', with: 'taro@sample.com')
+      fill_in('session_password', with: 'password')
+      click_button('ログイン')
+    end
     context 'タスクを登録した場合' do
       it '登録したタスクが表示される' do
         visit new_task_path
@@ -13,18 +20,27 @@ RSpec.describe 'タスク管理機能', type: :system do
         click_button('登録する')
         task_list = all('body tbody tr')
         expect(page).to have_table
+        expect(page).to have_text('タスクを登録しました')
         expect(task_list.first.text).to have_text('new task')
       end
     end
   end
 
   describe '一覧表示機能' do
-    let!(:first_task) { FactoryBot.create(:first_task) }
-    let!(:second_task) { FactoryBot.create(:second_task) }
-    let!(:third_task) { FactoryBot.create(:third_task) }
+    let!(:first_user) { FactoryBot.create(:first_user) }
+    let!(:second_user) { FactoryBot.create(:second_user) }
+    let!(:third_user) { FactoryBot.create(:third_user) }
+    let!(:first_task) { first_user.tasks.create!(FactoryBot.build(:first_task).attributes) }
+    let!(:second_task) { first_user.tasks.create!(FactoryBot.build(:second_task).attributes) }
+    let!(:third_task) { first_user.tasks.create!(FactoryBot.build(:third_task).attributes) }
+    let!(:jiro_task) { second_user.tasks.create!(FactoryBot.build(:jiro_task).attributes) }
+    let!(:hanako_task) { third_user.tasks.create!(FactoryBot.build(:hanako_task).attributes) }
 
     before do
-      visit tasks_path
+      visit new_session_path
+      fill_in('session_email', with: 'taro@sample.com')
+      fill_in('session_password', with: 'password')
+      click_button('ログイン')
     end
 
     context '一覧画面に遷移した場合' do
@@ -33,6 +49,8 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_table
         expect(task_list.first.text).to have_text('first_task')
         expect(task_list.last.text).to have_text('third_task')
+        expect(task_list.last.text).not_to have_text('jiro_task')
+        expect(task_list.last.text).not_to have_text('hanako_task')
       end
     end
     context '新たにタスクを作成した場合' do
@@ -51,18 +69,22 @@ RSpec.describe 'タスク管理機能', type: :system do
         task_list_after_creating_task = all('body tbody tr')
         expect(page).to have_table
         expect(task_list_after_creating_task.first.text).to have_text("latest")
-        expect(task_list_after_creating_task.first.text).not_to have_text("first_task")
+        expect(task_list_after_creating_task[1].text).to have_text("first_task")
       end
     end
   end
 
   describe 'ソート機能' do
-    let!(:first_task) { FactoryBot.create(:first_task) }
-    let!(:second_task) { FactoryBot.create(:second_task) }
-    let!(:third_task) { FactoryBot.create(:third_task) }
+    let!(:first_user) { FactoryBot.create(:first_user) }
+    let!(:first_task) { first_user.tasks.create!(FactoryBot.build(:first_task).attributes) }
+    let!(:second_task) { first_user.tasks.create!(FactoryBot.build(:second_task).attributes) }
+    let!(:third_task) { first_user.tasks.create!(FactoryBot.build(:third_task).attributes) }
 
     before do
-      visit tasks_path
+      visit new_session_path
+      fill_in('session_email', with: 'taro@sample.com')
+      fill_in('session_password', with: 'password')
+      click_button('ログイン')
     end
 
     context '「終了期限」というリンクをクリックした場合' do
@@ -96,12 +118,16 @@ RSpec.describe 'タスク管理機能', type: :system do
   end
 
   describe '検索機能' do
-    let!(:first_task) { FactoryBot.create(:first_task) }
-    let!(:second_task) { FactoryBot.create(:second_task) }
-    let!(:third_task) { FactoryBot.create(:third_task) }
+    let!(:first_user) { FactoryBot.create(:first_user) }
+    let!(:first_task) { first_user.tasks.create!(FactoryBot.build(:first_task).attributes) }
+    let!(:second_task) { first_user.tasks.create!(FactoryBot.build(:second_task).attributes) }
+    let!(:third_task) { first_user.tasks.create!(FactoryBot.build(:third_task).attributes) }
 
     before do
-      visit tasks_path
+      visit new_session_path
+      fill_in('session_email', with: 'taro@sample.com')
+      fill_in('session_password', with: 'password')
+      click_button('ログイン')
     end
     context 'タイトルであいまい検索をした場合' do
       it "検索ワードを含むタスクのみ表示される" do
@@ -183,16 +209,26 @@ RSpec.describe 'タスク管理機能', type: :system do
 
   describe '詳細表示機能' do
     context '任意のタスク詳細画面に遷移した場合' do
+      let!(:first_user) { FactoryBot.create(:first_user) }
+      let!(:first_task) { first_user.tasks.create!(FactoryBot.build(:first_task).attributes) }
+      let!(:second_task) { first_user.tasks.create!(FactoryBot.build(:second_task).attributes) }
+      let!(:third_task) { first_user.tasks.create!(FactoryBot.build(:third_task).attributes) }
+
+      before do
+        visit new_session_path
+        fill_in('session_email', with: 'taro@sample.com')
+        fill_in('session_password', with: 'password')
+        click_button('ログイン')
+      end
+
       it 'そのタスクの内容が表示される' do
-        task = FactoryBot.create(:first_task)
-        visit task_path(task.id)
-        expect(page).to have_text(task.title)
-        expect(page).to have_text(task.content)
-        expect(page).to have_text(task.created_at.strftime("%Y/%m/%d %H:%M"))
-        expect(page).to have_text(task.deadline_on.strftime("%Y/%m/%d"))
-        expect(page).to have_text(task.priority)
-        expect(page).to have_text(task.status)
-        second_task = FactoryBot.create(:second_task)
+        visit task_path(first_task.id)
+        expect(page).to have_text(first_task.title)
+        expect(page).to have_text(first_task.content)
+        expect(page).to have_text(first_task.created_at.strftime("%Y/%m/%d %H:%M"))
+        expect(page).to have_text(first_task.deadline_on.strftime("%Y/%m/%d"))
+        expect(page).to have_text(first_task.priority)
+        expect(page).to have_text(first_task.status)
         visit task_path(second_task.id)
         expect(page).to have_text(second_task.title)
         expect(page).to have_text(second_task.content)
@@ -200,6 +236,13 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).to have_text(second_task.deadline_on.strftime("%Y/%m/%d"))
         expect(page).to have_text(second_task.priority)
         expect(page).to have_text(second_task.status)
+        visit task_path(third_task.id)
+        expect(page).to have_text(third_task.title)
+        expect(page).to have_text(third_task.content)
+        expect(page).to have_text(third_task.created_at.strftime("%Y/%m/%d %H:%M"))
+        expect(page).to have_text(third_task.deadline_on.strftime("%Y/%m/%d"))
+        expect(page).to have_text(third_task.priority)
+        expect(page).to have_text(third_task.status)
       end
     end
   end

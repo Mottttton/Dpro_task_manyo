@@ -21,13 +21,19 @@ class Admin::UsersController < UsersController
       if @user.update(user_params)
         redirect_to admin_users_path, notice: t('.updated')
       else
+        flash[:notice] = t('.no_admin')
         render :edit
       end
   end
 
   def destroy
-      @user.destroy!
-      redirect_to admin_users_path, notice: t('.destroyed')
+      if @user.destroy
+        redirect_to admin_users_path, notice: t('.destroyed')
+      else
+        @users = User.with_tasks_amount
+        flash[:notice] = t('.no_admin')
+        render :index
+      end
   end
 
   private

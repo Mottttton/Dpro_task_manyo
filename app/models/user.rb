@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  before_destroy :at_least_one_admin_required, if: :delete_last_admin_user?
   has_many :tasks, dependent: :destroy
 
   validates :name, presence: true
@@ -10,15 +11,19 @@ class User < ApplicationRecord
   scope :admin_count, -> () { where(admin: true).count }
   scope :with_tasks_amount, -> () { left_outer_joins(:tasks).select('users.*, COUNT(tasks.id) AS tasks_count').group('users.id') }
 
-  after_update :at_least_one_admin_required
-  after_destroy :at_least_one_admin_required
+  before_update :at_least_one_admin_required, if: :remove_admin_from_last_admin_user?
 
   private
 
   def at_least_one_admin_required
-    if User.admin_count == 0
-      redirect_to admin_users_path, notice: t('.no_admin')
-      throw :abort
-    end
+    throw :abort
+  end
+
+  def remove_admin_from_last_admin_user?
+    User.admin_count == 1 && User.find_by(admin: true).id == id && !admin
+  end
+
+  def delete_last_admin_user?
+    admin? && User.admin_count == 1
   end
 end

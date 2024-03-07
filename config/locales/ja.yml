@@ -10,6 +10,7 @@ ja:
         deadline_on: 終了期限
         priority: 優先度
         status: ステータス
+        label: ラベル
       user: 
         name: 名前
         email: メールアドレス
@@ -121,6 +122,25 @@ ja:
       fail : メールアドレスまたはパスワードに誤りがあります
     destroy:
       destroyed: ログアウトしました
+  labels:
+    nav:
+      index: ラベル一覧
+      create: ラベルを登録する
+    index:
+      title: ラベル一覧ページ
+      table:
+        name: 名前
+        num_of_tasks: タスク数
+    new:
+      title: ラベル登録ページ
+    edit:
+      title: ラベル編集ページ
+    create:
+      created: ラベルを登録しました
+    update:
+      updated: ラベルを更新しました
+    destroy:
+      destroyed: ラベルを削除しました
   notice:
     require_sign_in: ログインしてください
     require_sign_out: ログアウトしてください

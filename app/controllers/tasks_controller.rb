@@ -43,6 +43,9 @@ class TasksController < ApplicationController
   end
 
   def update
+    if params[:label_ids].nil?
+      @task.labels.clear
+    end
     if @task.update(task_params)
       redirect_to task_path(@task.id), notice: t('.updated')
     else
@@ -58,11 +61,11 @@ class TasksController < ApplicationController
   private
 
   def set_task
-    @task = Task.find(params[:id])
+    @task = Task.with_labels.find(params[:id])
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :deadline_on, :priority, :status)
+    params.require(:task).permit(:title, :content, :deadline_on, :priority, :status, { label_ids: [] })
   end
 
   def correct_task_owner

@@ -17,6 +17,8 @@
           <% end %>
           <li><%= link_to t('tasks.nav.index'), tasks_path, method: :get, id: "tasks-index" %></li>
           <li><%= link_to t('tasks.nav.create'), new_task_path, method: :get, id: "new-task" %></li>
+          <li><%= link_to t('labels.nav.index'), labels_path, method: :get, id: "labels-index" %></li>
+          <li><%= link_to t('labels.nav.create'), new_label_path, method: :get, id: "new-label" %></li>
           <li><%= link_to t('users.nav.show'), user_path(current_user.id), method: :get, id: "account-setting" %></li>
           <li><%= link_to t('sessions.nav.delete'), session_path(current_user.id), method: :delete, id: "sign-out" %></li>
         <% else %>

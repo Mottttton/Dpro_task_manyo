@@ -1,0 +1,12 @@
+<h1><%= t('.title') %></h1>
+<% if @label.errors.any? %>
+  <div class="error_explanation">
+    <h2>Fail to create label</h2>
+    <ul>
+      <% @label.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= render 'form', {label: @label} %>

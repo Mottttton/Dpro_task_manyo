@@ -1,0 +1,18 @@
+<h1><%= t('.title') %></h1>
+<table>
+  <thead>
+    <th><%= t('.table.name') %></th>
+    <th><%= t('.table.num_of_tasks') %></th>
+    <th colspan=2></th>
+  </thead>
+  <tbody>
+    <% @labels.each do |label| %>
+      <tr>
+        <td><%= label.name %></td>
+        <td><%= label.tasks_count %></td>
+        <td><%= link_to t('common.edit'), edit_label_path(label.id), method: :get, class: 'edit-label' %></td>
+        <td><%= link_to t('common.destroy'), label_path(label.id), method: :delete, class: 'destroy-label', data: { confirm: t('common.confirm_destroy') } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

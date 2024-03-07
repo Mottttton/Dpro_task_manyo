@@ -19,6 +19,13 @@
     <%= f.label :status %>
     <%= f.select :status, Task.statuses.keys.map { |k| [k, k] }, include_blank: true %>
   </div>
+  <div class="field">
+    <%= f.label :label %>
+    <% Label.current_user_labels(current_user).each do |label| %>
+      <%= f.check_box :label_ids, { multiple: true, include_hidden: false }, label[:id] %>
+      <%= label.name %>
+    <% end %>
+  </div>
   <div class="actions">
     <%= f.submit id: action %>
   </div>

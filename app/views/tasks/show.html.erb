@@ -5,5 +5,11 @@
 <p><%= t('activerecord.attributes.task.deadline_on') %>:  <%= l @task.deadline_on %></p>
 <p><%= t('activerecord.attributes.task.priority') %>:  <%= @task.priority %></p>
 <p><%= t('activerecord.attributes.task.status') %>:  <%= @task.status %></p>
+<p>
+  <%= t('activerecord.attributes.task.label') %>:  
+  <% @task.labels.each do |label| %>
+    <%= label.name %>
+  <% end %>
+</p>
 <%= link_to t('common.edit'), edit_task_path, method: :get, id: "edit-task" %>  | 
 <%= link_to t('common.back'), tasks_path, method: :get, id: "back" %>

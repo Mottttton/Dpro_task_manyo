@@ -19,6 +19,9 @@ class TasksController < ApplicationController
         @tasks = Task.title_search(params[:search][:title]).in_reverse_created_date_order.page(params[:page])
       elsif params[:search][:status].present?
         @tasks = Task.status_search(params[:search][:status]).in_reverse_created_date_order.page(params[:page])
+      elsif params[:search][:label].present?
+        @label = Label.find(params[:search][:label])
+        @tasks = @label.tasks.in_reverse_created_date_order.page(params[:page])
       end
     end
   end

@@ -56,6 +56,7 @@ ja:
         deadline_on: 終了期限
         priority: 優先度
         status: ステータス
+        label: ラベル
     new:
       title: タスク登録ページ
     show:

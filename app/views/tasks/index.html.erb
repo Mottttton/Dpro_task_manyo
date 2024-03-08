@@ -5,6 +5,8 @@
     <%= f.select :status, Task.statuses.keys.map { |k| [k, k] }, include_blank: true %>
     <%= f.label :title, t('.table.title') %>
     <%= f.text_field :title %>
+    <%= f.label :label, t('.table.label') %>
+    <%= f.select :label, current_user.labels.collect { |l| [l.name, l.id] }, include_blank: true %>
   </div>
   <div class="action">
     <%= f.submit t('common.search'), id: 'search_task' %>

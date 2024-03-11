@@ -3,7 +3,7 @@ class LabelsController < ApplicationController
   before_action :correct_label_owner, only: [:edit]
 
   def index
-    @labels = Label.current_user_labels(current_user).with_num_of_tasks
+    @labels = current_user.labels.with_num_of_tasks
   end
 
   def new

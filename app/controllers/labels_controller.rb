@@ -1,6 +1,6 @@
 class LabelsController < ApplicationController
   before_action :set_label, only: [:edit, :update, :destroy]
-  before_action :correct_label_owner, only: [:edit]
+  before_action :correct_label_owner, only: [:create, :edit, :update, :destroy]
 
   def index
     @labels = current_user.labels.with_num_of_tasks

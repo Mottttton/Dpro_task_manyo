@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :correct_task_owner, only: [:show, :edit]
+  before_action :correct_task_owner, only: [:show, :edit, :update, :destroy]
 
   def index
     @tasks = Task.current_user_tasks(current_user).in_reverse_created_date_order.page(params[:page])

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :correct_user, only: [:show]
+  before_action :correct_user, only: [:show, :edit, :update, :destroy]
   before_action :sign_out_required, only: [:new, :create]
   skip_before_action :sign_in_required, only: [:new, :create]
 

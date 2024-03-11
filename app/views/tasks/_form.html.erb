@@ -24,7 +24,7 @@
   <div class="form-group">
     <%= f.label :label %>
     <div>
-      <% Label.current_user_labels(current_user).each do |label| %>
+      <% current_user.labels.each do |label| %>
         <div class="form-check form-check-inline">
           <%= f.check_box :label_ids, { multiple: true, include_hidden: false, class: 'form-check-input' }, label[:id] %>
           <%= f.label :label_ids, label.name, class: 'form-check-label', value: label[:id] %>

@@ -1,0 +1,13 @@
+<h1 class='my-4'><%= t('.title') %></h1>
+<% if @label.errors.any? %>
+  <div class="alert alert-danger">
+    <h2 class='alert-heading'>ラベルの登録に失敗しました</h2>
+    <hr>
+    <ul>
+      <% @label.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= render 'form', {label: @label} %>

@@ -1,0 +1,18 @@
+<h1 class='my-4'><%= t('.title') %></h1>
+<table class='table'>
+  <thead class='thead-light'>
+    <th scope='col'><%= t('.table.name') %></th>
+    <th scope='col'><%= t('.table.num_of_tasks') %></th>
+    <th scope='col' colspan=2></th>
+  </thead>
+  <tbody>
+    <% @labels.each do |label| %>
+      <tr scope='col'>
+        <td><%= label.name %></td>
+        <td><%= label.tasks_count %></td>
+        <td><%= link_to t('common.edit'), edit_label_path(label.id), method: :get, class: 'edit-label btn btn-primary' %></td>
+        <td><%= link_to t('common.destroy'), label_path(label.id), method: :delete, class: 'destroy-label btn btn-danger', data: { confirm: t('common.confirm_destroy') } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

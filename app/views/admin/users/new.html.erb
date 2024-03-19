@@ -1,7 +1,8 @@
-<h1><%= t('.title') %></h1>
+<h1 class='my-4'><%= t('.title') %></h1>
 <% if @user.errors.any? %>
-  <div class="error_explanation">
-    <h2>Fail to create user</h2>
+  <div class="alert alert-danger">
+    <h2 class='alert-heading'>ユーザの登録に失敗しました</h2>
+    <hr>
     <ul>
       <% @user.errors.full_messages.each do |message| %>
         <li><%= message %></li>

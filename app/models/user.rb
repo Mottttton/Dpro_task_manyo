@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   before_destroy :at_least_one_admin_required, if: :delete_last_admin_user?
   has_many :tasks, dependent: :destroy
+  has_many :labels, dependent: :destroy
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true, length: { maximum: 255 }, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i  }

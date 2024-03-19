@@ -118,12 +118,15 @@ RSpec.describe 'タスク管理機能', type: :system do
   end
 
   describe '検索機能' do
-    let!(:first_user) { FactoryBot.create(:first_user) }
+    let!(:first_user) { FactoryBot.create(:first_user, :with_labels) }
     let!(:first_task) { first_user.tasks.create!(FactoryBot.build(:first_task).attributes) }
     let!(:second_task) { first_user.tasks.create!(FactoryBot.build(:second_task).attributes) }
     let!(:third_task) { first_user.tasks.create!(FactoryBot.build(:third_task).attributes) }
 
     before do
+      first_task.labels << first_user.labels.find_by(name: 'internal')
+      second_task.labels << first_user.labels.find_by(name: 'customer')
+      third_task.labels << first_user.labels.find_by(name: 'internal')
       visit new_session_path
       fill_in('session_email', with: 'taro@sample.com')
       fill_in('session_password', with: 'password')
@@ -177,7 +180,6 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).not_to have_content('first_task')
         expect(page).not_to have_content('second_task')
         expect(page).to have_content('third_task')
-        # toとnot_toのマッチャを使って表示されるものとされないものの両方を確認する
       end
     end
     context 'タイトルとステータスで検索した場合' do
@@ -203,6 +205,21 @@ RSpec.describe 'タスク管理機能', type: :system do
         expect(page).not_to have_content('first_task')
         expect(page).not_to have_content('second_task')
         expect(page).not_to have_content('third_task')
+      end
+    end
+    context 'ラベルで検索をした場合' do
+      it "そのラベルの付いたタスクがすべて表示される" do
+        task_list_before_search = all('body tbody tr')
+        expect(task_list_before_search.count).to eq 3
+        expect(page).to have_content('first_task')
+        expect(page).to have_content('second_task')
+        expect(page).to have_content('third_task')
+
+        select('internal', from: 'search_label')
+        click_button('検索')
+        expect(page).to have_content('first_task')
+        expect(page).not_to have_content('second_task')
+        expect(page).to have_content('third_task')
       end
     end
   end

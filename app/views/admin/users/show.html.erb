@@ -1,9 +1,21 @@
-<h1><%= t('.title') %></h1>
-<p><%= t('activerecord.attributes.user.name') %>:  <%= @user.name %></p>
-<p><%= t('activerecord.attributes.user.email') %>:  <%= @user.email %></p>
-<p><%= t('activerecord.attributes.user.admin') %>:  <%= t(@user.admin) %></p>
-<table>
-  <thead>
+<h1 class='my-4'><%= t('.title') %></h1>
+<table class='table'>
+  <thead class='thead-light'>
+    <th scope='col'><%= t('.table.name') %></th>
+    <th scope='col'><%= t('.table.email') %></th>
+    <th scope='col'><%= t('.table.admin') %></th>
+  </thead>
+  <tbody>
+    <tr scope='row'>
+      <td><%= @user.name %></td>
+      <td><%= @user.email %></td>
+      <td><%= t(@user.admin) %></td>
+    </tr>
+  </tbody>
+</table>
+<h2><%= @user.name %>のタスク一覧</h2>
+<table class='table'>
+  <thead class='thead-light'>
     <th><%= t('tasks.index.table.title') %></th>
     <th><%= t('tasks.index.table.content') %></th>
     <th><%= t('tasks.index.table.created_at') %></th>
@@ -24,4 +36,4 @@
     <% end %>
   </tbody>
 </table>
-<%= link_to t('common.back'), admin_users_path, method: :get, id: "back" %>
+<%= link_to t('common.back'), admin_users_path, method: :get, id: "back", class: 'btn btn-secondary' %>

@@ -1,36 +1,45 @@
-<h1><%= t(".title") %></h1>
-<%= form_with(url: tasks_path, method: :get, scope: :search, local: true) do |f| %>
-  <div class="field">
-    <%= f.label :status, t('.table.status') %>
-    <%= f.select :status, Task.statuses.keys.map { |k| [k, k] }, include_blank: true %>
-    <%= f.label :title, t('.table.title') %>
-    <%= f.text_field :title %>
-  </div>
-  <div class="action">
-    <%= f.submit t('common.search'), id: 'search_task' %>
+<h1 class='my-4'><%= t(".title") %></h1>
+<%= form_with(url: tasks_path, method: :get, scope: :search, local: true, class: 'mb-3' ) do |f| %>
+  <div class="form-row justify-content-center">
+    <div class='form-group col-md-2'>
+      <%= f.label :status, t('.table.status', class: "mr-sm-2 sr-only") %>
+      <%= f.select :status, Task.statuses.keys.map { |k| [k, k] }, {include_blank: true}, {class: 'form-control'} %>
+    </div>
+    <div class='form-group col-md-4'>
+      <%= f.label :title, t('.table.title') %>
+      <%= f.text_field :title, class: 'form-control' %>
+    </div>
+    <div class='form-group col-md-2'>
+      <%= f.label :label, t('.table.label') %>
+      <%= f.select :label, current_user.labels.collect { |l| [l.name, l.id] }, {include_blank: true}, {class: 'form-control'} %>
+    </div>
+    <div class="form-group col-md-1 d-flex align-items-end">
+      <%= f.submit t('common.search'), id: 'search_task', class: 'btn btn-primary' %>
+    </div>
   </div>
 <% end %>
-<table>
-  <thead>
-    <th><%= t('.table.title') %></th>
-    <th><%= t('.table.content') %></th>
-    <th><%= t('.table.created_at') %></th>
-    <th><%= link_to t('.table.deadline_on'), sort_deadline_on: true %></th>
-    <th><%= link_to t('.table.priority'), sort_priority: true %></th>
-    <th><%= t('.table.status') %></th>
+<table class='table table-hover'>
+  <thead class='thead-light'>
+    <th scope='col'><%= t('.table.title') %></th>
+    <th scope='col'><%= t('.table.content') %></th>
+    <th scope='col'><%= t('.table.created_at') %></th>
+    <th scope='col'><%= link_to t('.table.deadline_on'), {sort_deadline_on: true}, {class: 'btn btn-primary'} %></th>
+    <th scope='col'><%= link_to t('.table.priority'), {sort_priority: true}, {class: 'btn btn-primary'} %></th>
+    <th scope='col'><%= t('.table.status') %></th>
+    <th scope='col' colspan='3'></th>
   </thead>
   <tbody>
     <% @tasks.each do |task| %>
-      <tr>
+      <tr scope='row'>
         <td><%= task.title %></td>
         <td><%= task.content %></td>
         <td><%= l task.created_at %></td>
         <td><%= l task.deadline_on %></td>
         <td><%= task.priority %></td>
         <td><%= task.status %></td>
-        <td><%= link_to t('common.show'), task_path(task.id), method: :get, class: "show-task" %></td>
-        <td><%= link_to t('common.edit'), edit_task_path(task.id), method: :get, class: "edit-task" %></td>
-        <td><%= link_to t('common.destroy'), task_path(task.id), method: :delete, class: "destroy-task", data: {confirm: t('common.confirm_destroy')} %></td>
+        <td><%= link_to t('common.show'), task_path(task.id), method: :get, class: "show-task btn btn-primary" %></td>
+        <td><%= link_to t('common.edit'), edit_task_path(task.id), method: :get, class: "edit-task btn btn-primary" %></td>
+        <td><%= link_to t('common.destroy'), task_path(task.id), method: :delete, class: "destroy-task btn btn-danger", data: {confirm: t('common.confirm_destroy')} %></td>
       </tr>
     <% end %>
   </tbody>

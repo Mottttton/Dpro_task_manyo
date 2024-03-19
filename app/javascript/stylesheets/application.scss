@@ -1,0 +1,13 @@
+@import '~bootstrap/scss/bootstrap';
+
+.card-content {
+  min-height: 100px;
+}
+
+.field_with_errors {
+  display: inline-block;
+}
+
+#navbarNav {
+  flex-grow: 0;
+}

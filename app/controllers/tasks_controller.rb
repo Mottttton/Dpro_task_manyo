@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :correct_task_owner, only: [:show, :edit]
+  before_action :correct_task_owner, only: [:show, :edit, :update, :destroy]
 
   def index
     @tasks = Task.current_user_tasks(current_user).in_reverse_created_date_order.page(params[:page])
@@ -19,6 +19,9 @@ class TasksController < ApplicationController
         @tasks = Task.title_search(params[:search][:title]).in_reverse_created_date_order.page(params[:page])
       elsif params[:search][:status].present?
         @tasks = Task.status_search(params[:search][:status]).in_reverse_created_date_order.page(params[:page])
+      elsif params[:search][:label].present?
+        @label = Label.find(params[:search][:label])
+        @tasks = @label.tasks.in_reverse_created_date_order.page(params[:page])
       end
     end
   end
@@ -43,6 +46,9 @@ class TasksController < ApplicationController
   end
 
   def update
+    if params[:label_ids].nil?
+      @task.labels.clear
+    end
     if @task.update(task_params)
       redirect_to task_path(@task.id), notice: t('.updated')
     else
@@ -58,11 +64,11 @@ class TasksController < ApplicationController
   private
 
   def set_task
-    @task = Task.find(params[:id])
+    @task = Task.with_labels.find(params[:id])
   end
 
   def task_params
-    params.require(:task).permit(:title, :content, :deadline_on, :priority, :status)
+    params.require(:task).permit(:title, :content, :deadline_on, :priority, :status, { label_ids: [] })
   end
 
   def correct_task_owner

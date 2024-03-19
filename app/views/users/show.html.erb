@@ -1,4 +1,14 @@
-<h1><%= t('.title') %></h1>
-<p><%= t('activerecord.attributes.user.name') %>:  <%= @user.name %></p>
-<p><%= t('activerecord.attributes.user.email') %>:  <%= @user.email %></p>
-<%= link_to t('common.edit'), edit_user_path, method: :get, id: "edit-user" %>
+<h1 class='my-4'><%= t('.title') %></h1>
+<table class='table'>
+  <thead class='thead-light'>
+    <th scope='col'><%= t('.table.name') %></th>
+    <th scope='col'><%= t('.table.email') %></th>
+  </thead>
+  <tbody>
+    <tr scope='row'>
+      <td><%= @user.name %></td>
+      <td><%= @user.email %></td>
+    </tr>
+  </tbody>
+</table>
+<%= link_to t('common.edit'), edit_user_path, method: :get, id: "edit-user", class: 'btn btn-primary' %>
